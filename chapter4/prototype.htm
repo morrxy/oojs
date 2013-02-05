@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS test</title>
+</head>
+<body>
+
+<h1>JS test</h1>
+
+<script type="text/javascript">
+	var some_obj = {
+		name: 'Ninja',
+		say: function() {
+			return 'I am a ' + this.name;
+		}
+	}
+
+	function F() {}
+	console.log(typeof F.prototype);
+
+	F.prototype = some_obj;
+
+	var obj = new F();
+	console.log(obj.name);
+	console.log(obj.say());
+
+</script>
+</body>
+</html>

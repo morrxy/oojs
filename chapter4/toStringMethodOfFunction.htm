@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS test</title>
+</head>
+<body>
+
+<h1>JS test - function's toString method</h1>
+<p>page:133</p>
+
+<script type="text/javascript">
+
+function myfunc(a, b, c) {
+	return a + b + c;
+}
+
+console.log(myfunc.toString());
+// where is toString?
+// seem's in myfunc.__proto__
+// myfunc.__proto__.toString.call(myfunc)
+// what is the relationship between myfunc.prototype and myfunc.__proto__?
+
+</script>
+</body>
+</html>

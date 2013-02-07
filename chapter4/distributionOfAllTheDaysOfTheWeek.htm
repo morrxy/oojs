@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS test</title>
+</head>
+<body>
+
+<h1>JS test</h1>
+<p>page:</p>
+
+<script type="text/javascript">
+
+var stats = [0, 0, 0, 0, 0, 0, 0];
+
+for (var i = 2012; i < 3012; i++) {
+	stats[new Date(i, 5, 20).getDay()]++;
+}
+
+console.log(stats.toString());
+
+</script>
+</body>
+</html>

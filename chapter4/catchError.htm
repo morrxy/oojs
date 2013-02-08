@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>catch error</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 159</p>
+
+<pre>
+try {
+	iDontExist();
+} catch (e) {
+	console.log(e.name + ': ' + e.message);
+} finally {
+	console.log('Finally!');
+}
+</pre>
+
+<script type="text/javascript">
+try {
+	iDontExist();
+} catch (e) {
+	console.log(e.name + ': ' + e.message);
+} finally {
+	console.log('Finally!');
+}
+</script>
+
+</body>
+</html>

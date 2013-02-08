@@ -1,4 +1,1 @@
-oojs
-====
-
-book oojs's example
+examples from book Object Oriented Javascript

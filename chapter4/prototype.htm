@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS test</title>
+	<title></title>
 </head>
 <body>
 
-<h1>JS test - function's prototype</h1>
-<p>page:133</p>
+<h1>function's prototype</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 133</p>
+
+<pre>
+	var some_obj = {
+		name: 'Ninja',
+		say: function() {
+			return 'I am a ' + this.name;
+		}
+	}
+
+	function F() {}
+	console.log(typeof F.prototype);
+
+	F.prototype = some_obj;
+
+	var obj = new F();
+	console.log(obj.name);
+	console.log(obj.say());
+</pre>
 
 <script type="text/javascript">
 	var some_obj = {
@@ -24,7 +43,7 @@
 	var obj = new F();
 	console.log(obj.name);
 	console.log(obj.say());
-
 </script>
+
 </body>
 </html>

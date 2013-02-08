@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS test</title>
+	<title></title>
 </head>
 <body>
 
-<h1>JS test - see the distribution of all the days of the week from 2012 to 3012</h1>
-<p>page:150</p>
+<h1>see the distribution of all the days of the week from 2012 to 3012</h1>
 
-<script type="text/javascript">
+<p>from book Object Oriented Javascript pdf version, page 150</p>
 
+<pre>
 var stats = [0, 0, 0, 0, 0, 0, 0];
 
 for (var i = 2012; i < 3012; i++) {
@@ -17,7 +17,17 @@ for (var i = 2012; i < 3012; i++) {
 }
 
 console.log(stats.toString());
+</pre>
 
+<script type="text/javascript">
+var stats = [0, 0, 0, 0, 0, 0, 0];
+
+for (var i = 2012; i < 3012; i++) {
+	stats[new Date(i, 5, 20).getDay()]++;
+}
+
+console.log(stats.toString());
 </script>
+
 </body>
 </html>

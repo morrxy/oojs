@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS test</title>
+	<title></title>
 </head>
 <body>
 
-<h1>JS test - function's call and apply method</h1>
-<p>page:134</p>
+<h1>function's call and apply method</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 134</p>
+
+<pre>
+var som_obj = {
+	name: 'Ninja',
+	say: function(who) {
+		return 'Haya ' + who + ', I am a ' + this.name;
+	}
+};
+
+console.log(som_obj.say('Dude'));
+
+var my_obj = {
+	name: 'Scripting guru'
+};
+
+console.log(som_obj.say.call(my_obj, 'Dude'));
+</pre>
 
 <script type="text/javascript">
 
@@ -26,5 +44,6 @@ var my_obj = {
 console.log(som_obj.say.call(my_obj, 'Dude'));
 
 </script>
+
 </body>
 </html>

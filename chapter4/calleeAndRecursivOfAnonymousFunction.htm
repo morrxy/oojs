@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS test</title>
+	<title></title>
 </head>
 <body>
 
-<h1>JS test - use callee of arguments to recursive anonymous function</h1>
-<p>page:135</p>
+<h1>use callee of arguments to recursive anonymous function</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 135</p>
+
+<pre>
+(
+	function(count) {
+		if (count < 5) {
+			console.log(count);
+			arguments.callee(++count);
+		}
+	}
+)(1)
+</pre>
 
 <script type="text/javascript">
 
@@ -20,5 +32,6 @@
 )(1)
 
 </script>
+
 </body>
 </html>

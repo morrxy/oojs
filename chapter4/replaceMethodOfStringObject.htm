@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>replace method of String object</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 154</p>
+
+<pre>
+// This method does not change the String object it is called on. It simply returns a new string.
+var s = new String('HelloJavascriptWorld');
+console.log(s.replace(/[A-Z]/g, ''));
+console.log(s.replace(/[A-Z]/, ''));
+// notice: use $& to access the matched text
+console.log(s.replace(/[A-Z]/g, "_$&"));
+// notice: use $1 to access the first group, $2 to access second group, etc...
+console.log(s.replace(/([A-Z])/g, "_$1"));
+
+var email = "stoyan@phpied.com";
+var username = email.replace(/(.*)@.*/, "$1");
+console.log(username);
+
+// replace callback
+function replaceCallback(match) {
+	return "_" + match.toLowerCase();
+}
+console.log(s.replace(/[A-Z]/g, replaceCallback));
+
+// The callback function will receive a number of parameters (we ignored all but thefirst one in the example above)
+// The first parameter is the match
+// The last is the total string being examined.
+// The one before last is the position of the match
+// The rest of the parameters contain any strings matched by any groups in your regex pattern
+var glob;
+var re = /(.*)@(.*)\.(.*)/;
+var callback = function() {
+	glob = arguments;
+	return arguments[1] + ' at ' + arguments[2] + ' dot ' + arguments[3];
+};
+console.log("stoyan@phpied.com".replace(re, callback));
+console.log(glob);
+</pre>
+
+<script type="text/javascript">
+
+// This method does not change the String object it is called on. It simply returns a new string.
+var s = new String('HelloJavascriptWorld');
+console.log(s.replace(/[A-Z]/g, ''));
+console.log(s.replace(/[A-Z]/, ''));
+// notice: use $& to access the matched text
+console.log(s.replace(/[A-Z]/g, "_$&"));
+// notice: use $1 to access the first group, $2 to access second group, etc...
+console.log(s.replace(/([A-Z])/g, "_$1"));
+
+var email = "stoyan@phpied.com";
+var username = email.replace(/(.*)@.*/, "$1");
+console.log(username);
+
+// replace callback
+function replaceCallback(match) {
+	return "_" + match.toLowerCase();
+}
+console.log(s.replace(/[A-Z]/g, replaceCallback));
+
+// The callback function will receive a number of parameters (we ignored all but thefirst one in the example above):
+// The first parameter is the match
+// The last is the total string being examined.
+// The one before last is the position of the match
+// The rest of the parameters contain any strings matched by any groups in your regex pattern
+var glob;
+var re = /(.*)@(.*)\.(.*)/;
+var callback = function() {
+	glob = arguments;
+	return arguments[1] + ' at ' + arguments[2] + ' dot ' + arguments[3];
+};
+console.log("stoyan@phpied.com".replace(re, callback));
+console.log(glob);
+
+</script>
+
+</body>
+</html>

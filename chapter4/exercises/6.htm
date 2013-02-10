@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>create a constructor called MyArray() that behaves as close to Array as possible</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 6</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+function MyArray() {
+	var result = {};
+	var i;
+	for (i = 0; i < arguments.length; i++) {
+		result[i] = arguments[i];
+	}
+
+	var countLength = function() {
+		var l = 0;
+		for (property in result) {
+			l += 1;
+		}
+		return l;
+	};
+
+	result.length = countLength();
+
+	result.push = function() {
+		result[result.length] = arguments[0];
+		result.length += 1;
+		return result.length;
+	};
+
+	result.toString = function() {
+		var s = "";
+		var i;
+		var d;
+		var letter = (arguments.length == 0 ? ',' : arguments[0]);
+		for (i = 0; i < result.length; i++) {
+			d = i == result.length - 1 ? '' : letter;
+			s = s + result[i] + d;
+		}
+		return s;
+	};
+
+	result.pop = function() {
+		delete result[result.length];
+		result.length -= 1;
+		return '[' + result.toString() + ']';
+	};
+
+	result.join = function() {
+		return result.toString(arguments[0]);
+	};
+
+	return result;
+};
+
+var a = new MyArray(1, 2, 3, "test");
+console.log(a.length);
+console.log(a.push('boo'));
+console.log(a.toString());
+console.log(a.pop());
+console.log(a.toString());
+console.log(a.join(','));
+console.log(a.join(' isn\'t '));
+
+</script>
+
+</body>
+</html>

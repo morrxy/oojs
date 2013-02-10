@@ -39,6 +39,7 @@ function MyString(aString) {
 	result.slice = function(from, to) {
 		var s = '';
 		var i;
+		to = to < 0 ? result.length + to : to;
 		for (i = from ; i < to; i++) {
 			s += result[i];
 		}
@@ -84,7 +85,9 @@ console.log(s.charAt('2'));
 console.log(s.charAt('e'));
 console.log(s.concat(' world!'));
 console.log(s.slice(1, 3));
+console.log(s.slice(0, -1));
 console.log(s.split('e'));
+console.log(s.split('l'));
 console.log(s.reverse());
 
 </script>

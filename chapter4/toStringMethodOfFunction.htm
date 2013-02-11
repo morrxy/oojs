@@ -24,10 +24,14 @@ function myfunc(a, b, c) {
 }
 
 console.log(myfunc.toString());
+
 // where is toString?
 // seem's in myfunc.__proto__
 // myfunc.__proto__.toString.call(myfunc)
 // what is the relationship between myfunc.prototype and myfunc.__proto__?
+// myfunc.__proto__ is myfunc's constructor's prototype
+// myfunc.constructor.prototype.toString === myfunc.__proto__.toString
+// myfunc.prototype is myfunc's prototype when myfunc is created, it's initial value is a blank object
 
 </script>
 

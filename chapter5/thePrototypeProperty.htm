@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>the prototype property</h1>
+<p>prototype is a property that gets created as soon as you define the function. Its initial value is an empty object.</p>
+
+<p>from book Object Oriented Javascript pdf version, page 167</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+function foo(a, b) {
+	return a * b;
+}
+console.log(foo.length);
+console.log(foo.constructor);
+console.log(typeof foo.prototype);
+console.log(foo.prototype);
+foo.prototype = {};
+console.log(foo.prototype);
+
+</script>
+
+</body>
+</html>

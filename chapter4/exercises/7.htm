@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page 164</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+var MyMath = {
+	min: function(array) {
+		var result = array[0];
+		var i;
+		for (i = 1; i < array.length; i++) {
+			result = array[i] < result ? array[i] : result;
+		}
+		return result;
+	},
+	max: function(array) {
+		var result = array[0];
+		var i;
+		for (i = 1; i < array.length; i++) {
+			result = array[i] > result ? array[i] : result;
+		}
+		return result;
+	}
+};
+
+console.log(MyMath.min([0.2, 3, 40]));
+console.log(MyMath.max([0.3, 5, 50]));
+
+</script>
+
+</body>
+</html>

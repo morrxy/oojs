@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>using the prototype</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 167</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+function Gadget(name, color) {
+	this.name = name;
+	this.color = color;
+	this.whatAreYou = function() {
+		return 'I am a ' + this.color + ' ' + this.name;
+	}
+}
+
+Gadget.prototype.price = 100;
+Gadget.prototype.rating = 3;
+Gadget.prototype.getInfo = function() {
+	return 'Rating: ' + this.rating + ', price: ' + this.price;
+};
+
+Gadget.prototype = {
+	price: 100,
+	rating: 3,
+	getInfo: function() {
+		return 'Rating: ' + this.rating + ', price: ' + this.price;
+	}
+};
+
+var newtoy = new Gadget('webcam', 'black');
+console.log(newtoy.name);
+console.log(newtoy.color);
+console.log(newtoy.whatAreYou());
+console.log(newtoy.price);
+console.log(newtoy.rating);
+console.log(newtoy.getInfo());
+
+Gadget.prototype.get = function(what) {
+	return this[what];
+}
+
+console.log(newtoy.get('price'));
+console.log(newtoy.get('color'));
+
+</script>
+
+</body>
+</html>

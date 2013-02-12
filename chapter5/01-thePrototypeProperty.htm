@@ -11,7 +11,15 @@
 <p>from book Object Oriented Javascript pdf version, page 167</p>
 
 <pre>
-
+function foo(a, b) {
+	return a * b;
+}
+console.log(foo.length);
+console.log(foo.constructor);
+console.log(typeof foo.prototype);
+console.log(foo.prototype);
+foo.prototype = {};
+console.log(foo.prototype);
 </pre>
 
 <script type="text/javascript">

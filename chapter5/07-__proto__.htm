@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>__proto__</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 175</p>
+
+<pre>
+var monkey = {
+	feeds: 'bananas',
+	breathes: 'air'
+};
+
+function Human() {}
+
+Human.prototype = monkey;
+var developer = new Human();
+developer.feeds = 'pizza';
+developer.hacks = 'JavaScript';
+
+console.log(developer.hacks);
+console.log(developer.feeds);
+console.log(developer.breathes);
+
+developer.constructor = 'junk';
+
+console.log(typeof developer.constructor.prototype);
+console.log(developer.breathes);
+console.log(developer.__proto__);
+
+console.log(typeof developer.__proto__);
+console.log(typeof developer.prototype);
+</pre>
+
+<script type="text/javascript">
+var monkey = {
+	feeds: 'bananas',
+	breathes: 'air'
+};
+
+function Human() {}
+
+Human.prototype = monkey;
+var developer = new Human();
+developer.feeds = 'pizza';
+developer.hacks = 'JavaScript';
+
+console.log(developer.hacks);
+console.log(developer.feeds);
+console.log(developer.breathes);
+
+developer.constructor = 'junk';
+
+console.log(typeof developer.constructor.prototype);
+console.log(developer.breathes);
+console.log(developer.__proto__);
+
+console.log(typeof developer.__proto__);
+console.log(typeof developer.prototype);
+
+</script>
+
+</body>
+</html>

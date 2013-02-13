@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>augmenting built-in objects</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 177</p>
+
+<pre>
+Array.prototype.inArray = function(needle) {
+	for (var i = 0, len = this.length; i < len; i++) {
+		if (this[i] === needle) {
+			return true;
+		}
+	}
+	return false;
+}
+
+var a = ['red', 'green', 'blue'];
+
+console.log(a.inArray('red'));
+console.log(a.inArray('yellow'));
+
+String.prototype.reverse = function() {
+	return Array.prototype.reverse.apply(this.split('')).join('');
+}
+
+console.log("Stoyan".reverse());
+</pre>
+
+<script type="text/javascript">
+Array.prototype.inArray = function(needle) {
+	for (var i = 0, len = this.length; i < len; i++) {
+		if (this[i] === needle) {
+			return true;
+		}
+	}
+	return false;
+}
+
+var a = ['red', 'green', 'blue'];
+
+console.log(a.inArray('red'));
+console.log(a.inArray('yellow'));
+
+String.prototype.reverse = function() {
+	return Array.prototype.reverse.apply(this.split('')).join('');
+}
+
+console.log("Stoyan".reverse());
+</script>
+
+</body>
+</html>

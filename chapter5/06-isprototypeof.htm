@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>isPrototypeOf</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 174</p>
+
+<pre>
+var monkey = {
+	hair: true,
+	feeds: 'bananas',
+	breathes: 'air'
+};
+
+function Human(name) {
+	this.name = name;
+}
+
+Human.prototype = monkey;
+
+var george = new Human('George');
+
+console.log(monkey.isPrototypeOf(george));
+</pre>
+
+<script type="text/javascript">
+var monkey = {
+	hair: true,
+	feeds: 'bananas',
+	breathes: 'air'
+};
+function Human(name) {
+	this.name = name;
+}
+Human.prototype = monkey;
+
+var george = new Human('George');
+console.log(monkey.isPrototypeOf(george));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>enumerating properties</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 172</p>
+
+<pre>
+function Gadget(name, color) {
+	this.name = name;
+	this.color = color;
+	this.someMethod = function() {
+		return 1;
+	}
+}
+Gadget.prototype.price = 100;
+Gadget.prototype.rating = 3;
+
+var newtoy = new Gadget('webcam', 'black');
+for (var prop in newtoy) {
+	console.log(prop + ' = ' + newtoy[prop]);
+}
+
+console.log(newtoy.hasOwnProperty('name'));
+console.log(newtoy.hasOwnProperty('price'));
+
+for (var prop in newtoy) {
+	if (newtoy.hasOwnProperty(prop)) {
+		console.log(prop + ' = ' + newtoy[prop]);
+	}
+}
+
+console.log(newtoy.propertyIsEnumerable('name'));
+console.log(newtoy.propertyIsEnumerable('constructor'));
+console.log(newtoy.propertyIsEnumerable('price'));
+console.log(newtoy.constructor.prototype.propertyIsEnumerable('price'));
+</pre>
+
+<script type="text/javascript">
+
+function Gadget(name, color) {
+	this.name = name;
+	this.color = color;
+	this.someMethod = function() {
+		return 1;
+	}
+}
+Gadget.prototype.price = 100;
+Gadget.prototype.rating = 3;
+
+var newtoy = new Gadget('webcam', 'black');
+for (var prop in newtoy) {
+	console.log(prop + ' = ' + newtoy[prop]);
+}
+
+console.log(newtoy.hasOwnProperty('name'));
+console.log(newtoy.hasOwnProperty('price'));
+
+for (var prop in newtoy) {
+	if (newtoy.hasOwnProperty(prop)) {
+		console.log(prop + ' = ' + newtoy[prop]);
+	}
+}
+
+console.log(newtoy.propertyIsEnumerable('name'));
+console.log(newtoy.propertyIsEnumerable('constructor'));
+console.log(newtoy.propertyIsEnumerable('price'));
+console.log(newtoy.constructor.prototype.propertyIsEnumerable('price'));
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>overwriteing prototype's property with own property</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 171</p>
+
+<pre>
+function Gadget(name) {
+	this.name = name;
+}
+Gadget.prototype.name = 'foo';
+
+var toy = new Gadget('camera');
+console.log(toy.name);
+delete toy.name;
+console.log(toy.name);
+toy.name = 'camera';
+console.log(toy.name);
+</pre>
+
+<script type="text/javascript">
+function Gadget(name) {
+	this.name = name;
+}
+Gadget.prototype.name = 'foo';
+
+var toy = new Gadget('camera');
+console.log(toy.name);
+delete toy.name;
+console.log(toy.name);
+toy.name = 'camera';
+console.log(toy.name);
+
+</script>
+
+</body>
+</html>

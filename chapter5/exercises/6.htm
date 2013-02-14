@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page 183</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+if (!Array.prototype.shuffle) {
+	Array.prototype.shuffle = function() {
+		var result = [];
+		var element;
+		var i;
+		while (this.length > 0) {
+			i = Math.floor((Math.random() * this.length));
+			element = this.splice(i, 1);
+			result.push(element[0]);
+		}
+		return result;
+	};
+}
+
+console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].shuffle());
+
+</script>
+
+</body>
+</html>

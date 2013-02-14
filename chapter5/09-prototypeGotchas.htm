@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page </p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+function Dog() {
+	this.tail = true;
+}
+
+var benji = new Dog();
+var rusty = new Dog();
+
+Dog.prototype.say = function() {
+	return 'Woof!';
+}
+
+console.log(benji.say());
+console.log(rusty.say());
+
+console.log(benji.constructor);
+console.log(rusty.constructor);
+console.log(benji.constructor.prototype.constructor);
+console.log(typeof benji.constructor.prototype.tail);
+
+Dog.prototype = {
+	paws: 4,
+	hair: true
+};
+// Dog.prototype.constructor = Dog;
+
+console.log('typeof benji.paws');
+console.log(typeof benji.paws);
+console.log('benji.say()');
+console.log(benji.say());
+console.log('typeof benji.__proto__.say');
+console.log(typeof benji.__proto__.say);
+console.log('typeof benji.__proto__.paws');
+console.log(typeof benji.__proto__.paws);
+
+var lucy = new Dog();
+
+// console.log(lucy.say());
+console.log('lucy.paws');
+console.log(lucy.paws);
+console.log('typeof lucy.__proto__.say');
+console.log(typeof lucy.__proto__.say);
+console.log('typeof lucy.__proto__.paws');
+console.log(typeof lucy.__proto__.paws);
+console.log('lucy.constructor');
+console.log(lucy.constructor);
+
+console.log('typeof lucy.constructor.prototype.paws');
+console.log(typeof lucy.constructor.prototype.paws);
+console.log('typeof benji.constructor.prototype.paws');
+console.log(typeof benji.constructor.prototype.paws);
+
+</script>
+
+</body>
+</html>

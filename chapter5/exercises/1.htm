@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page 183</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+var shape = {
+	type: 'shape',
+	getType: function() {
+		return this.type;
+	}
+};
+
+function Triangle(a, b, c) {
+	this.type = 'triangle';
+	this.a = a;
+	this.b = b;
+	this.c = c;
+}
+
+Triangle.prototype = shape;
+Triangle.prototype.constructor = Triangle;
+
+Triangle.prototype.getPerimeter = function() {
+	return this.a + this.b + this.c;
+}
+
+var t = new Triangle(1, 2, 3);
+console.log(t.constructor);
+console.log(t.getType());
+
+for (var prop in t) {
+	if (t.hasOwnProperty(prop)) {
+		console.log('t.' + prop + ': ' + t[prop]);
+	}
+}
+
+</script>
+
+</body>
+</html>

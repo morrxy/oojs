@@ -5,9 +5,9 @@
 </head>
 <body>
 
-<h1>moving shared properties to the prototype</h1>
+<h1>inheriting the prototype only</h1>
 
-<p>from book Object Oriented Javascript pdf version, page 190</p>
+<p>from book Object Oriented Javascript pdf version, page 191</p>
 
 <pre>
 function Shape() {}
@@ -19,7 +19,7 @@ Shape.prototype.toString = function() {
 
 function TwoDShape() {}
 // take care of inheritance
-TwoDShape.prototype = new Shape();
+TwoDShape.prototype = Shape.prototype;
 TwoDShape.prototype.constructor = TwoDShape;
 // augment prototype
 TwoDShape.prototype.name = '2D shape';
@@ -28,8 +28,9 @@ function Triangle(side, height) {
 	this.side = side;
 	this.height = height;
 }
+
 // take care of inheritance
-Triangle.prototype = new TwoDShape();
+Triangle.prototype = TwoDShape.prototype;
 Triangle.prototype.constructor = Triangle;
 // augment prototype
 Triangle.prototype.name = 'Triangle';
@@ -39,7 +40,6 @@ Triangle.prototype.getArea = function() {
 </pre>
 
 <script type="text/javascript">
-
 function Shape() {}
 // augment prototype
 Shape.prototype.name = 'shape';
@@ -49,7 +49,7 @@ Shape.prototype.toString = function() {
 
 function TwoDShape() {}
 // take care of inheritance
-TwoDShape.prototype = new Shape();
+TwoDShape.prototype = Shape.prototype;
 TwoDShape.prototype.constructor = TwoDShape;
 // augment prototype
 TwoDShape.prototype.name = '2D shape';
@@ -58,8 +58,9 @@ function Triangle(side, height) {
 	this.side = side;
 	this.height = height;
 }
+
 // take care of inheritance
-Triangle.prototype = new TwoDShape();
+Triangle.prototype = TwoDShape.prototype;
 Triangle.prototype.constructor = Triangle;
 // augment prototype
 Triangle.prototype.name = 'Triangle';
@@ -70,10 +71,9 @@ Triangle.prototype.getArea = function() {
 var my = new Triangle(5, 10);
 console.log(my.getArea());
 console.log(my.toString());
-console.log(my.hasOwnProperty('side'));
-console.log(my.hasOwnProperty('name'));
-console.log(TwoDShape.prototype.isPrototypeOf(my));
-console.log(my instanceof Shape);
+
+var s = new Shape();
+console.log(s.name);
 
 </script>
 

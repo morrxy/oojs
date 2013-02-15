@@ -5,9 +5,9 @@
 </head>
 <body>
 
-<h1>moving shared properties to the prototype</h1>
+<h1>inheriting the prototype only, using a temporary constructor function</h1>
 
-<p>from book Object Oriented Javascript pdf version, page 190</p>
+<p>from book Object Oriented Javascript pdf version, page 192</p>
 
 <pre>
 function Shape() {}
@@ -19,7 +19,9 @@ Shape.prototype.toString = function() {
 
 function TwoDShape() {}
 // take care of inheritance
-TwoDShape.prototype = new Shape();
+var F = function() {};
+F.prototype = Shape.prototype;
+TwoDShape.prototype = new F();
 TwoDShape.prototype.constructor = TwoDShape;
 // augment prototype
 TwoDShape.prototype.name = '2D shape';
@@ -28,8 +30,11 @@ function Triangle(side, height) {
 	this.side = side;
 	this.height = height;
 }
+
 // take care of inheritance
-Triangle.prototype = new TwoDShape();
+var F = function() {};
+F.prototype = TwoDShape.prototype;
+Triangle.prototype = new F();
 Triangle.prototype.constructor = Triangle;
 // augment prototype
 Triangle.prototype.name = 'Triangle';
@@ -49,7 +54,9 @@ Shape.prototype.toString = function() {
 
 function TwoDShape() {}
 // take care of inheritance
-TwoDShape.prototype = new Shape();
+var F = function() {};
+F.prototype = Shape.prototype;
+TwoDShape.prototype = new F();
 TwoDShape.prototype.constructor = TwoDShape;
 // augment prototype
 TwoDShape.prototype.name = '2D shape';
@@ -58,8 +65,11 @@ function Triangle(side, height) {
 	this.side = side;
 	this.height = height;
 }
+
 // take care of inheritance
-Triangle.prototype = new TwoDShape();
+var F = function() {};
+F.prototype = TwoDShape.prototype;
+Triangle.prototype = new F();
 Triangle.prototype.constructor = Triangle;
 // augment prototype
 Triangle.prototype.name = 'Triangle';
@@ -70,10 +80,10 @@ Triangle.prototype.getArea = function() {
 var my = new Triangle(5, 10);
 console.log(my.getArea());
 console.log(my.toString());
-console.log(my.hasOwnProperty('side'));
-console.log(my.hasOwnProperty('name'));
-console.log(TwoDShape.prototype.isPrototypeOf(my));
-console.log(my instanceof Shape);
+
+console.log(my.__proto__.__proto__.__proto__.constructor);
+var s = new Shape();
+console.log(s.name);
 
 </script>
 

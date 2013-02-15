@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>moving shared properties to the prototype</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 190</p>
+
+<pre>
+function Shape() {}
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	return this.name;
+};
+
+function TwoDShape() {}
+TwoDShape.prototype = new Shape();
+TwoDShape.prototype.constructor = TwoDShape;
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+Triangle.prototype = new TwoDShape();
+Triangle.prototype.constructor = Triangle;
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+</pre>
+
+<script type="text/javascript">
+
+function Shape() {}
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	return this.name;
+};
+
+function TwoDShape() {}
+TwoDShape.prototype = new Shape();
+TwoDShape.prototype.constructor = TwoDShape;
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+Triangle.prototype = new TwoDShape();
+Triangle.prototype.constructor = Triangle;
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+
+var my = new Triangle(5, 10);
+console.log(my.getArea());
+console.log(my.toString());
+console.log(my.hasOwnProperty('side'));
+console.log(my.hasOwnProperty('name'));
+console.log(TwoDShape.prototype.isPrototypeOf(my));
+console.log(my instanceof Shape);
+
+</script>
+
+</body>
+</html>

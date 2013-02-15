@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>prototype Chaining Example</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 185</p>
+
+<pre>
+function Shape() {
+	this.name = 'shape';
+	this.toString = function() {
+		return this.name;
+	};
+}
+
+function TwoDShape() {
+	this.name = '2D shape';
+}
+
+function Triangle(side, heigth) {
+	this.name = 'Triangle';
+	this.side = side;
+	this.heigth = heigth;
+	this.getArea = function() {
+		return this.side * this.heigth / 2;
+	};
+}
+
+TwoDShape.prototype = new Shape();
+TwoDShape.prototype.constructor = TwoDShape;
+Triangle.prototype = new TwoDShape();
+Triangle.prototype.constructor = Triangle;
+</pre>
+
+<script type="text/javascript">
+
+function Shape() {
+	this.name = 'shape';
+	this.toString = function() {
+		return this.name;
+	};
+}
+
+function TwoDShape() {
+	this.name = '2D shape';
+}
+
+function Triangle(side, heigth) {
+	this.name = 'Triangle';
+	this.side = side;
+	this.heigth = heigth;
+	this.getArea = function() {
+		return this.side * this.heigth / 2;
+	};
+}
+
+TwoDShape.prototype = new Shape();
+TwoDShape.prototype.constructor = TwoDShape;
+Triangle.prototype = new TwoDShape();
+Triangle.prototype.constructor = Triangle;
+
+var my = new Triangle(5, 10);
+console.log(my.getArea());
+console.log(my.toString());
+
+console.log(my.constructor);
+console.log(my instanceof Shape);
+console.log(my instanceof TwoDShape);
+console.log(my instanceof Triangle);
+console.log(my instanceof Array);
+console.log(Shape.prototype.isPrototypeOf(my));
+console.log(TwoDShape.prototype.isPrototypeOf(my));
+console.log(Triangle.prototype.isPrototypeOf(my));
+console.log(String.prototype.isPrototypeOf(my));
+
+var td = new TwoDShape();
+console.log(td.constructor);
+console.log(td.toString());
+
+var s = new Shape();
+console.log(s.constructor);
+
+</script>
+
+</body>
+</html>

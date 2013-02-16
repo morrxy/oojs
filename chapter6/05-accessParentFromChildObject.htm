@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>Uber, access to the parent from a child object</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 194</p>
+
+<pre>
+function Shape() {}
+// augment prototype;
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	var result = [];
+	if (this.constructor.uber) {
+		result[result.length] = this.constructor.uber.toString();
+	}
+	result[result.length] = this.name;
+	return result.join(', ');
+};
+
+function TwoDShape() {}
+// take care of inheritance
+var F = function() {};
+F.prototype = Shape.prototype;
+TwoDShape.prototype = new F();
+TwoDShape.prototype.constructor = TwoDShape;
+TwoDShape.uber = Shape.prototype;
+// agument prototype
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+
+// take care of inheritance
+var F = function() {};
+F.prototype = TwoDShape.prototype;
+Triangle.prototype = new F();
+Triangle.prototype.constructor = Triangle;
+Triangle.uber = TwoDShape.prototype;
+// augment prototype
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+
+var my = new Triangle(5, 10);
+console.log(my.toString());
+
+var mytd = new TwoDShape();
+console.log(mytd.toString());
+
+var myshape = new Shape();
+console.log(myshape.toString());
+</pre>
+
+<script type="text/javascript">
+
+function Shape() {}
+// augment prototype;
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	var result = [];
+	if (this.constructor.uber) {
+		result[result.length] = this.constructor.uber.toString();
+	}
+	result[result.length] = this.name;
+	return result.join(', ');
+};
+
+function TwoDShape() {}
+// take care of inheritance
+var F = function() {};
+F.prototype = Shape.prototype;
+TwoDShape.prototype = new F();
+TwoDShape.prototype.constructor = TwoDShape;
+TwoDShape.uber = Shape.prototype;
+// agument prototype
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+
+// take care of inheritance
+var F = function() {};
+F.prototype = TwoDShape.prototype;
+Triangle.prototype = new F();
+Triangle.prototype.constructor = Triangle;
+Triangle.uber = TwoDShape.prototype;
+// augment prototype
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+
+var my = new Triangle(5, 10);
+console.log(my.toString());
+
+var mytd = new TwoDShape();
+console.log(mytd.toString());
+
+var myshape = new Shape();
+console.log(myshape.toString());
+
+</script>
+
+</body>
+</html>

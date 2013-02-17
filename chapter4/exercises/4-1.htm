@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>create a constructor function Mystring() that like String() as closely as possible</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 162</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+
+function MyString(aString) {
+	var result = [];
+	for (property in aString) {
+		result[property] = aString[property];
+	}
+
+	result.toString = function() {
+		return result.join('');
+	};
+
+	result.valueOf = result.toString;
+
+	result.charAt = function(n) {
+		var m = Number(n) ? Number(n) : 0;
+		return result[m];
+	};
+
+	result.concat = function(aString) {
+		return result.toString() + aString;
+	};
+
+	result.slice = function(from, to) {
+		var s = '';
+		var i;
+		to = to < 0 ? result.length + to : to;
+		for (i = from ; i < to; i++) {
+			s += result[i];
+		}
+		return s;
+	};
+
+	result.split = function(aString) {
+		var allIndexMatched = [];
+		var indexMatched;
+		var indexFrom = 0;
+		while (true) {
+			indexMatched = result.indexOf(aString, indexFrom);
+			if (indexMatched == -1) {
+				break;
+			}
+			allIndexMatched.push(indexMatched);
+			indexFrom = indexMatched + 1;
+		}
+
+		var splitArray = [];
+		for (var i = 0; i <= allIndexMatched.length; i++) {
+			if (i == 0) {
+				splitArray.push(result.slice(0, allIndexMatched[0]));
+			} else if (i == allIndexMatched.length) {
+				splitArray.push(result.slice(allIndexMatched[i - 1] + 1, result.length));
+			} else {
+				splitArray.push(result.slice(allIndexMatched[i - 1] + 1, allIndexMatched[i]));
+			}
+		}
+		return splitArray;
+	};
+
+	result.reverse = function() {
+		return result.toString(Array.prototype.reverse.call(result));
+	};
+	
+	return result;
+}
+
+
+var s = new MyString('helleo');
+
+console.log(s.length);
+console.log(s[0]);
+console.log(s.toString());
+console.log(s.valueOf());
+console.log(s.charAt(1));
+console.log(s.charAt('2'));
+console.log(s.charAt('e'));
+console.log(s.concat(' world!'));
+console.log(s.slice(1, 3));
+console.log(s.slice(0, -1));
+console.log(s.split('e'));
+console.log(s.split('l'));
+console.log(s.reverse());
+
+</script>
+
+</body>
+</html>

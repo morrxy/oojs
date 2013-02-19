@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>isolating the inheritance part into a function</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 195</p>
+
+<pre>
+function extend(Child, Parent) {
+	var F = function() {};
+	F.prototype = Parent.prototype;
+	Child.prototype = new F();
+	Child.prototype.constructor = Child;
+	Child.uber = Parent.prototype;
+}
+
+function Shape() {}
+// augment prototype;
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	var result = [];
+	if (this.constructor.uber) {
+		result[result.length] = this.constructor.uber.toString();
+	}
+	result[result.length] = this.name;
+	return result.join(', ');
+};
+
+function TwoDShape() {}
+// take care of inheritance
+extend(TwoDShape, Shape);
+// agument prototype
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+
+// take care of inheritance
+extend(Triangle, TwoDShape);
+// augment prototype
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+</pre>
+
+<script type="text/javascript">
+
+function extend(Child, Parent) {
+	var F = function() {};
+	F.prototype = Parent.prototype;
+	Child.prototype = new F();
+	Child.prototype.constructor = Child;
+	Child.uber = Parent.prototype;
+}
+
+function Shape() {}
+// augment prototype;
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	var result = [];
+	if (this.constructor.uber) {
+		result[result.length] = this.constructor.uber.toString();
+	}
+	result[result.length] = this.name;
+	return result.join(', ');
+};
+
+function TwoDShape() {}
+// take care of inheritance
+extend(TwoDShape, Shape);
+// agument prototype
+TwoDShape.prototype.name = '2D shape';
+
+function Triangle(side, height) {
+	this.side = side;
+	this.height = height;
+}
+
+// take care of inheritance
+extend(Triangle, TwoDShape);
+// augment prototype
+Triangle.prototype.name = 'Triangle';
+Triangle.prototype.getArea = function() {
+	return this.side * this.height / 2;
+};
+
+var my = new Triangle(5, 10);
+console.log(my.toString());
+
+var mytd = new TwoDShape();
+console.log(mytd.toString());
+
+var myshape = new Shape();
+console.log(myshape.toString());
+
+</script>
+
+</body>
+</html>

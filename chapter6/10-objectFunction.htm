@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page </p>
+
+<pre>
+function object(o) {
+	var n;
+	function F() {}
+	F.prototype = o;
+	n = new F();
+	n.uber = o;
+	return n;
+}
+
+var shape = {
+	name: 'shape',
+	toString: function() {
+		return this.name;
+	}
+};
+
+var twoDee = object(shape);
+twoDee.name = '2D shape';
+twoDee.toString = function() {
+	return this.uber.toString() + ', ' + this.name;
+};
+
+var triangle = object(twoDee);
+triangle.name = 'Triangle';
+
+triangle.getArea = function() {
+	return this.side * this.height / 2;
+}
+
+console.log(triangle.toString());
+</pre>
+
+<script type="text/javascript">
+
+function object(o) {
+	var n;
+	function F() {}
+	F.prototype = o;
+	n = new F();
+	n.uber = o;
+	return n;
+}
+
+var shape = {
+	name: 'shape',
+	toString: function() {
+		return this.name;
+	}
+};
+
+var twoDee = object(shape);
+twoDee.name = '2D shape';
+twoDee.toString = function() {
+	return this.uber.toString() + ', ' + this.name;
+};
+
+var triangle = object(twoDee);
+triangle.name = 'Triangle';
+
+triangle.getArea = function() {
+	return this.side * this.height / 2;
+}
+
+console.log(triangle.toString());
+
+</script>
+
+</body>
+</html>

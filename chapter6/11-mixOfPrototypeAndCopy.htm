@@ -18,9 +18,8 @@ function objectPlus(o, stuff) {
 	n.uber = o;
 
 	for (var i in stuff) {
-		// I found in for in loop, shape's toString method not copy into extended obj
-		// because: A for...in loop does not iterate over non–enumerable properties. Objects created from built–in constructors like Array and Object have inherited non–enumerable properties from Object.prototype and String.prototype that are not enumerable, such as String's indexOf method or Object's toString method.
-		// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
+		// I found in debuger, for in loop will finish in one step into,so you can't see the process of every property copy
+		// for some detail of for in, see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
 		n[i] = stuff[i];
 	}
 
@@ -66,9 +65,8 @@ function objectPlus(o, stuff) {
 	n.uber = o;
 
 	for (var i in stuff) {
-		// I found in for in loop, shape's toString method not copy into extended obj
-		// because: A for...in loop does not iterate over non–enumerable properties. Objects created from built–in constructors like Array and Object have inherited non–enumerable properties from Object.prototype and String.prototype that are not enumerable, such as String's indexOf method or Object's toString method.
-		// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
+		// I found in debuger, for in loop will finish in one step into,so you can't see the process of every property copy
+		// for some detail of for in, see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
 		n[i] = stuff[i];
 	}
 

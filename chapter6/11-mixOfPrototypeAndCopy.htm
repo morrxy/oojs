@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>using a mix of prototypal inheritance and copying properties</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 204</p>
+
+<pre>
+function objectPlus(o, stuff) {
+	var n;
+	function F() {}
+	F.prototype = o;
+	n = new F();
+	n.uber = o;
+
+	for (var i in stuff) {
+		// I found in for in loop, shape's toString method not copy into extended obj
+		// because: A for...in loop does not iterate over non–enumerable properties. Objects created from built–in constructors like Array and Object have inherited non–enumerable properties from Object.prototype and String.prototype that are not enumerable, such as String's indexOf method or Object's toString method.
+		// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
+		n[i] = stuff[i];
+	}
+
+	return n;
+}
+
+var shape = {
+	name: 'shape',
+	toString: function() {
+		return this.name;
+	}
+};
+
+var twoDee = objectPlus(shape, {
+	name: '2D shape',
+	toString: function() {
+		return this.uber.toString() + ', ' + this.name;
+	}
+});
+
+var triangle = objectPlus(twoDee, {
+	name: 'Triangle',
+	getArea: function() {
+		return this.side * this.height / 2;
+	},
+	side: 0,
+	height: 0
+});
+
+var my = objectPlus(triangle, {side:4, height:4});
+
+console.log(my.getArea());
+console.log(my.toString());
+</pre>
+
+<script type="text/javascript">
+
+function objectPlus(o, stuff) {
+	var n;
+	function F() {}
+	F.prototype = o;
+	n = new F();
+	n.uber = o;
+
+	for (var i in stuff) {
+		// I found in for in loop, shape's toString method not copy into extended obj
+		// because: A for...in loop does not iterate over non–enumerable properties. Objects created from built–in constructors like Array and Object have inherited non–enumerable properties from Object.prototype and String.prototype that are not enumerable, such as String's indexOf method or Object's toString method.
+		// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
+		n[i] = stuff[i];
+	}
+
+	return n;
+}
+
+var shape = {
+	name: 'shape',
+	toString: function() {
+		return this.name;
+	}
+};
+
+var twoDee = objectPlus(shape, {
+	name: '2D shape',
+	toString: function() {
+		return this.uber.toString() + ', ' + this.name;
+	}
+});
+
+var triangle = objectPlus(twoDee, {
+	name: 'Triangle',
+	getArea: function() {
+		return this.side * this.height / 2;
+	},
+	side: 0,
+	height: 0
+});
+
+var my = objectPlus(triangle, {side:4, height:4});
+
+console.log(my.getArea());
+console.log(my.toString());
+
+</script>
+
+</body>
+</html>

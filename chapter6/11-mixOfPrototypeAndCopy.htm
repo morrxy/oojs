@@ -21,6 +21,8 @@ function objectPlus(o, stuff) {
 		// I found in debuger, for in loop will finish in one step into,so you can't see the process of every property copy
 		// for some detail of for in, see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in
 		n[i] = stuff[i];
+		// if you add console.log(n[i]); you can see every copy step 
+		// console.log(n[i]);
 	}
 
 	return n;

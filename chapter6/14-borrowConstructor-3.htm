@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>borrowing a constructor</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 210</p>
+
+<pre>
+function Shape(id) {
+	this.id = id;
+}
+
+function Triangle() {
+	Shape.apply(this, arguments);
+}
+Triangle.prototype = new Shape(101);
+
+var t = new Triangle(202);
+console.log(t.id);
+console.log(t.__proto__.id);
+console.log(delete t.id);
+console.log(t.id);
+</pre>
+
+<script type="text/javascript">
+
+function Shape(id) {
+	this.id = id;
+}
+
+function Triangle() {
+	Shape.apply(this, arguments);
+}
+Triangle.prototype = new Shape(101);
+
+var t = new Triangle(202);
+console.log(t.id);
+console.log(t.__proto__.id);
+console.log(delete t.id);
+console.log(t.id);
+
+</script>
+
+</body>
+</html>

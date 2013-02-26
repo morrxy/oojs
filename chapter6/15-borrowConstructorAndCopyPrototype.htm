@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>borrow a constructor and copy its prototype</h1>
+<h2>the problem of the double work performed by calling the constructor twice
+can easily be corrected.</h2>
+
+<p>from book Object Oriented Javascript pdf version, page 210</p>
+
+<pre>
+function extend2(Child, Parent) {
+	var p = Parent.prototype;
+	var c = Child.prototype;
+	for (var i in p) {
+		c[i] = p[i];	
+	}
+	c.uber = p;
+}
+
+function Shape(id) {
+	this.id = id;
+}
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	return this.name;
+};
+
+function Triangle() {
+	Shape.apply(this, arguments);
+}
+extend2(Triangle, Shape);
+Triangle.prototype.name = 'Triangle';
+
+var t = new Triangle(101);
+console.log(t.toString());
+console.log(t.id);
+console.log(t.__proto__.id);// no double inheritance
+console.log(t.uber.name); // extend2() also gives access to uber if needed
+</pre>
+
+<script type="text/javascript">
+function extend2(Child, Parent) {
+	var p = Parent.prototype;
+	var c = Child.prototype;
+	for (var i in p) {
+		c[i] = p[i];	
+	}
+	c.uber = p;
+}
+
+function Shape(id) {
+	this.id = id;
+}
+Shape.prototype.name = 'shape';
+Shape.prototype.toString = function() {
+	return this.name;
+};
+
+function Triangle() {
+	Shape.apply(this, arguments);
+}
+extend2(Triangle, Shape);
+Triangle.prototype.name = 'Triangle';
+
+var t = new Triangle(101);
+console.log(t.toString());
+console.log(t.id);
+console.log(t.__proto__.id);// no double inheritance
+console.log(t.uber.name); // extend2() also gives access to uber if needed
+
+</script>
+
+</body>
+</html>

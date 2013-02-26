@@ -43,7 +43,7 @@ Shape.prototype.toString = function() {
 function Triangle() {
 	Shape.apply(this, arguments);
 }
-Triangle.prototype = new Shape();
+Triangle.prototype = new Shape();//after this line, Triangle.prototype.id is undefined
 Triangle.prototype.name = 'Triangle';
 
 var t = new Triangle(101);

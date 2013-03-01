@@ -103,6 +103,23 @@ function Trapezoid(a, b, height, da, db) {
 	};
 }
 
+function Rhombus(pointa, sideLength, degree) {
+	var radian = (Math.PI / 180) * degree;
+	var dx = pointa.x + sideLength - sideLength * Math.cos(radian);
+	var dy = pointa.y + sideLength * Math.sin(radian);
+	this.points = [
+		pointa,
+		new Point(pointa.x + sideLength, pointa.y),
+		new Point(pointa.x + sideLength - dx, pointa.y + dy),
+		new Point(pointa.x - dx, pointa.y + dy)
+	];
+	this.getArea = function() {
+		var line1 = new Line(this.points[0], this.points[2]);
+		var line2 = new Line(this.points[1], this.points[3]);
+		return (line1.length * line2.length) / 2;
+	};
+}
+
 function Triangle(a, b, c) {
 	this.points = [a, b, c];
 	this.getArea = function() {
@@ -136,15 +153,20 @@ function Square(p, side) {
 	Rectangle.prototype = s;
 	Square.prototype = s;
 	Trapezoid.prototype = s;
+	Rhombus.prototype = s;
 })();
 
 // trapezoid
 var tra1 = new Trapezoid(new Point(100, 100), new Point(200, 100), 80, 30, 60);
 console.log(tra1.getArea());
+console.log(tra1.getPerimeter());
 tra1.draw();
-var tra2 = new Trapezoid(new Point(300, 200), new Point(400, 200), 80, -10, 40);
-console.log(tra2.getArea());
-tra2.draw();
+
+// Rhombus
+var rhom = new Rhombus(new Point(300, 200), 50, 30);
+rhom.draw();
+console.log(rhom.getArea());
+console.log(rhom.getPerimeter());
 
 </script>
 

@@ -90,6 +90,37 @@ Shape.prototype = {
 	}
 };
 
+function getArc(degree) {
+	return degree * Math.PI / 180;
+}
+
+function Pentagon(vertex, sideLength) {
+	var r = sideLength / 2 / Math.sin(Math.PI / 5);
+	var interiorAngle = 108;
+	var angle1 = interiorAngle / 2;
+	var dx1 = sideLength * Math.sin(getArc(angle1));
+	var dy1 = sideLength * Math.cos(getArc(angle1));
+	// left point
+	var left = new Point(vertex.x - dx1, vertex.y + dy1);
+	// right point
+	var right = new Point(vertex.x + dx1, vertex.y + dy1);
+
+	var angle2 = interiorAngle - ((180 - interiorAngle) / 2);
+	var dx2 = sideLength * Math.cos(getArc(angle2));
+	var dy2 = sideLength * Math.sin(getArc(angle2));
+	// left bottom point
+	var leftBottom = new Point(left.x + dx2, left.y + dy2);
+	// right bottom point
+	var rightBottom = new Point(right.x - dx2, leftBottom.y);
+
+	this.points = [vertex, left, leftBottom, rightBottom, right];
+
+	this.getArea = function() {
+		return 5 * sideLength * sideLength * Math.tan(getArc(54)) / 4;
+	};
+
+}
+
 function Trapezoid(a, b, height, da, db) {
 	this.points = [a, b,
 		new Point(b.x + db, b.y + height),
@@ -104,9 +135,10 @@ function Trapezoid(a, b, height, da, db) {
 }
 
 function Rhombus(pointa, sideLength, degree) {
-	var radian = (Math.PI / 180) * degree;
-	var dx = pointa.x + sideLength - sideLength * Math.cos(radian);
-	var dy = pointa.y + sideLength * Math.sin(radian);
+	var radian = degree * Math.PI / 180;
+	// var dx = pointa.x + sideLength - sideLength * Math.cos(radian);
+	var dx = sideLength * Math.cos(radian);
+	var dy = sideLength * Math.sin(radian);
 	this.points = [
 		pointa,
 		new Point(pointa.x + sideLength, pointa.y),
@@ -117,6 +149,18 @@ function Rhombus(pointa, sideLength, degree) {
 		var line1 = new Line(this.points[0], this.points[2]);
 		var line2 = new Line(this.points[1], this.points[3]);
 		return (line1.length * line2.length) / 2;
+	};
+}
+
+function Kite(crossPoint, distanceLeft, distanceTop, distanceBottom) {
+	this.points = [
+		new Point(crossPoint.x, crossPoint.y - distanceTop),
+		new Point(crossPoint.x + distanceLeft, crossPoint.y),
+		new Point(crossPoint.x, crossPoint.y + distanceBottom),
+		new Point(crossPoint.x - distanceLeft, crossPoint.y)
+	];
+	this.getArea = function() {
+		return (distanceLeft * 2 * distanceTop / 2) + (distanceLeft * 2 * distanceBottom / 2);
 	};
 }
 
@@ -154,6 +198,8 @@ function Square(p, side) {
 	Square.prototype = s;
 	Trapezoid.prototype = s;
 	Rhombus.prototype = s;
+	Kite.prototype = s;
+	Pentagon.prototype = s;
 })();
 
 // trapezoid
@@ -163,10 +209,23 @@ console.log(tra1.getPerimeter());
 tra1.draw();
 
 // Rhombus
-var rhom = new Rhombus(new Point(300, 200), 50, 30);
+var rhom = new Rhombus(new Point(300, 200), 50, 45);
 rhom.draw();
 console.log(rhom.getArea());
 console.log(rhom.getPerimeter());
+
+// kite
+var kite1 = new Kite(new Point(90, 50), 60, 30, 80);
+kite1.draw();
+console.log(kite1.getArea());
+console.log(kite1.getPerimeter());
+
+// pentagon
+var pen1 = new Pentagon(new Point(190, 150), 80);
+pen1.draw();
+console.log(pen1.getArea());
+console.log(pen1.getPerimeter());
+
 
 </script>
 

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1></h1>
+
+<p>from book Object Oriented Javascript pdf version, page 221</p>
+
+<pre>
+
+</pre>
+
+<canvas height="600" width="800" id="canvas" />
+
+<script type="text/javascript">
+
+function deepCopy(p, c) {
+	var c = c || {};
+	for (var i in p) {
+		if (typeof p[i] === 'object') {
+			c[i] = (p[i].constructor === Array) ? [] : {};
+			deepCopy(p[i], c[i]);
+		} else {
+			c[i] = p[i];
+		}
+	}
+	return c;
+}
+
+function makePoint(x, y) {
+	var result = {};
+	result.x = x;
+	result.y = y;
+	return result;
+}
+
+function makeLine(p1, p2) {
+	var result = {};
+	result.p1 = p1;
+	result.p2 = p2;
+	result.length = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+	return result;
+}
+
+var shape = {
+	points: [],
+	lines: [],
+	init: function () {
+		if (typeof this.context === 'undefined') {
+			var canvas = document.getElementById('canvas');
+			this.context = canvas.getContext('2d');
+		}
+	},
+	draw: function() {
+		this.init();
+		var ctx = this.context;
+		ctx.strokeStyle = this.getColor();
+		ctx.beginPath();
+		ctx.moveTo(this.points[0].x, this.points[0].y);
+		for (var i = 1; i < this.points.length; i++) {
+			ctx.lineTo(this.points[i].x, this.points[i].y);
+		}
+		ctx.closePath();
+		ctx.stroke();
+	},
+	getColor: function() {
+		var rgb = [];
+		for (var i = 0; i < 3; i++) {
+			rgb[i] = Math.round(255 * Math.random());
+		}
+		return 'rgb(' + rgb.join(',') + ')';
+	},
+	getLines: function() {
+		if (this.lines.length > 0) {
+			return this.lines;
+		}
+		var lines = [];
+		for (var i = 0; i < this.points.length; i++) {
+			lines[i] = makeLine(this.points[i], this.points[i+1] ? this.points[i+1] : this.points[0]);
+		}
+		this.lines = lines;
+		return lines;
+	},
+	getArea: function() {},
+	getPerimeter: function() {
+		var lines = this.getLines();
+		var perim = 0;
+		for (var i = 0; i < lines.length; i++) {
+			perim += lines[i].length;
+		}
+		return perim;
+	}
+};
+
+function triangle(a, b, c) {
+	var result = deepCopy(shape, {});
+	result.points = [a, b, c];
+	result.getArea = function() {
+		var p = this.getPerimeter();
+		var s = p / 2;
+		return Math.sqrt(s * (s - this.lines[0].length) * (s - this.lines[1].length) * (s - this.lines[2].length));
+	};
+	return result;
+}
+
+var tri1 = triangle(makePoint(10,10), makePoint(80,10), makePoint(50,60));
+tri1.draw();
+
+function rectangle(leftTopPoint, horizontalSideLength, verticalSideLength) {
+	var that = deepCopy(shape, {});
+	that.points = [
+		leftTopPoint,
+		makePoint(leftTopPoint.x + horizontalSideLength, leftTopPoint.y),          // top right
+		makePoint(leftTopPoint.x + horizontalSideLength, leftTopPoint.y + verticalSideLength), // bottom right
+		makePoint(leftTopPoint.x, leftTopPoint.y + verticalSideLength)           // bottom left
+	];
+	that.getArea = function() {
+		return horizontalSideLength * verticalSideLength;
+	};
+	return that;
+}
+
+var rect1 = rectangle(makePoint(10,60), 50, 60);
+rect1.draw();
+
+function square(p, side) {
+	return rectangle(p, side, side);
+}
+
+var squ1 = square(makePoint(150, 20), 50);
+squ1.draw();
+
+// var p1 = makePoint(2, 5);
+// var line1 = makeLine({x: 20, y:20}, {x: 30, y:30});
+
+
+/*
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+function Line(p1, p2) {
+	this.p1 = p1;
+	this.p2 = p2;
+	this.length = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
+function Shape() {
+	this.points = [];
+	this.lines = [];
+	this.init();
+}
+
+Shape.prototype = {
+	// reset pointer to constructor
+	constructor: Shape,
+	// initiallization, sets this.context to point
+	// to the context of the canvas object
+	init: function() {
+		if (typeof this.context === 'undefined') {
+			var canvas = document.getElementById('canvas');
+			Shape.prototype.context = canvas.getContext('2d');
+		}
+	},
+	// method that draws a shape by looping through this.points
+	draw: function() {
+		var ctx = this.context;
+		ctx.strokeStyle = this.getColor();
+		ctx.beginPath();
+		ctx.moveTo(this.points[0].x, this.points[0].y);
+		for (var i = 1; i < this.points.length; i++) {
+			ctx.lineTo(this.points[i].x, this.points[i].y);
+		}
+		ctx.closePath();
+		ctx.stroke();
+	},
+	// method that generaes a random color
+	getColor: function() {
+		var rgb = [];
+		for (var i = 0; i < 3; i++) {
+			rgb[i] = Math.round(255 * Math.random());
+		}
+		return 'rgb(' + rgb.join(',') + ')';
+	},
+	// method that loops through the points array,
+	// creates Line instances and adds them to this.lines
+	getLines: function() {
+		if (this.lines.length > 0) {
+			return this.lines;
+		}
+		var lines = [];
+		for (var i = 0; i < this.points.length; i++) {
+			lines[i] = new Line(this.points[i], this.points[i+1] ? this.points[i+1] : this.points[0]);
+		}
+		this.lines = lines;
+		return lines;
+	},
+	// shell method, to be implemented by children
+	getArea: function() {},
+	// sums the lengths of all lines
+	getPerimeter: function() {
+		var lines = this.getLines();
+		var perim = 0;
+		for (var i = 0; i < lines.length; i++) {
+			perim += lines[i].length;
+		}
+		return perim;
+	}
+};
+
+function Triangle(a, b, c) {
+	this.points = [a, b, c];
+	this.getArea = function() {
+		var p = this.getPerimeter();
+		var s = p / 2;
+		return Math.sqrt(
+			s * (s - this.lines[0].length) * (s - this.lines[1].length) * (s - this.lines[2].length)
+		);
+	};
+}
+
+function Rectangle(p, side_a, side_b) {
+	this.points = [
+		p,
+		new Point(p.x + side_a, p.y),          // top right
+		new Point(p.x + side_a, p.y + side_b), // bottom right
+		new Point(p.x, p.y + side_b)           // bottom left
+	];
+	this.getArea = function() {
+		return  side_a * side_b;
+	};
+}
+
+function Square(p, side) {
+	Rectangle.call(this, p, side, side);
+}
+
+(function() {
+	var s = new Shape();
+	Triangle.prototype = s;
+	Rectangle.prototype = s;
+	Square.prototype = s;
+})();
+*/
+</script>
+
+</body>
+</html>

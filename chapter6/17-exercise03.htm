@@ -133,6 +133,48 @@ function square(p, side) {
 var squ1 = square(makePoint(150, 20), 50);
 squ1.draw();
 
+function getArc(degree) {
+	return degree * Math.PI / 180;
+}
+
+var trapezoid = function(leftTop, topLineLength, height, leftTopAngle, rightTopAngle) {
+	var that = deepCopy(shape, {});
+	// right top point
+	var rightTop = makePoint(leftTop.x + topLineLength, leftTop.y);
+	// left bottom point
+	if (leftTopAngle > 90) {
+		var ang1 = leftTopAngle - 90;
+		var dx1 = height * Math.tan(getArc(ang1));
+		var x1 = leftTop.x - dx1;
+	} else if (leftTopAngle < 90) {
+		var dx1 = height * Math.tan(getArc(90 - leftTopAngle));
+		var x1 = leftTop.x + dx1;
+	}
+	var leftBottom = makePoint(x1, leftTop.y + height);
+	// right bottom point
+	if (rightTopAngle > 90) {
+		var ang2 = rightTopAngle - 90;
+		var dx2 = height * Math.tan(getArc(ang2));
+		var x2 = rightTop.x + dx2;
+	} else if (rightTopAngle < 90) {
+		var dx2 = height * Math.tan(getArc(90 - leftTopAngle));
+		var x2 = rightTop.x - dx2;
+	}
+	var rightBottom = makePoint(x2, leftBottom.y);
+
+	that.points = [leftTop, rightTop, rightBottom, leftBottom];
+
+	that.getArea = function() {
+		var bottomLine = new Line(leftBottom, rightBottom);
+		return (topLineLength + bottomLine.length) * height / 2;
+	};
+
+	return that;
+};
+
+var tra2 = trapezoid(makePoint(250, 100), 70, 80, 80, 80);
+tra2.draw();
+
 // var p1 = makePoint(2, 5);
 // var line1 = makeLine({x: 20, y:20}, {x: 30, y:30});
 

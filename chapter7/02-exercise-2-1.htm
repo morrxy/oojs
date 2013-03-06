@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<h1>walk the dom</h1>
+
+<p>from book Object Oriented Javascript pdf version, page 247</p>
+
+<pre>
+
+</pre>
+
+<script type="text/javascript">
+function walkDOM(n) {
+	var callback = arguments[arguments.length - 1];
+	do {
+		callback(n);
+		if (n.hasChildNodes()) {
+			walkDOM(n.firstChild, callback);
+		}
+	} while (n = n.nextSibling)
+}
+
+walkDOM(document.documentElement, function(el) {
+	console.log(el);
+});
+</script>
+
+</body>
+</html>
